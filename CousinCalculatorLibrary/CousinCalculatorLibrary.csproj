@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="CousinCalculator.cs" />
     <Compile Include="Gender.cs" />
+    <Compile Include="InsufficientFamilyHistoryException.cs" />
+    <Compile Include="NoGenderSpecifiedException.cs" />
     <Compile Include="Relationship.cs" />
     <Compile Include="Relative.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

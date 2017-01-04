@@ -8,22 +8,51 @@ namespace CousinCalculatorLibrary
 {
     public class Relative
     {
-        private Gender gender = Gender.NONE;
-        private List<Relative> children = new List<Relative>();
+        private Gender gender;
+        private Relative father;
+        private Relative mother;
+        //private List<Relative> children = new List<Relative>();
 
         public Relative(Gender gender)
         {
             this.gender = gender;
         }
 
-        public Relative()
+        public void addChild(Relative child)
         {
-            this.gender = Gender.NONE;
+            if (this.gender == Gender.MALE)
+            {
+                child.setFather(this);
+            }
+            else if (this.gender == Gender.FEMALE)
+            {
+                child.setMother(this);
+            }
         }
 
-        public void addChild(Relative relative)
+        Gender getGender()
         {
-            children.Add(relative);
+            return this.gender;
+        }
+
+        public void setFather(Relative father)
+        {
+            this.father = father;
+        }
+
+        public Relative getFather()
+        {
+            return this.father;
+        }
+
+        public void setMother(Relative mother)
+        {
+            this.mother = mother;
+        }
+
+        public Relative getMother()
+        {
+            return this.mother;
         }
     }
 }

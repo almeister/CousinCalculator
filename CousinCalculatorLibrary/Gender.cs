@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace CousinCalculatorLibrary
 {
-    public enum Gender {NONE = 0, MALE, FEMALE, OTHER};
+    public enum Gender {MALE = 0, FEMALE};
 }

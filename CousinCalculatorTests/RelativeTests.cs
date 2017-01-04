@@ -26,6 +26,11 @@ namespace CousinCalculatorTests
             mother = new Relative(Gender.FEMALE);
             uncle = new Relative(Gender.MALE);
             aunt = new Relative(Gender.FEMALE);
+
+            grandFather.addChild(mother);
+            grandMother.addChild(mother);
+            grandFather.addChild(uncle);
+            grandMother.addChild(uncle);
         }
 
         [TestMethod]
@@ -33,24 +38,51 @@ namespace CousinCalculatorTests
         {
             Relative daughter = new Relative(Gender.FEMALE);
             Relative son = new Relative(Gender.MALE);
-            father.addChild(daughter);
-            father.addChild(son);
+            mother.addChild(daughter);
+            mother.addChild(son);
 
             Assert.AreEqual(Relationship.NOT_COUSINS, calculator.findRelationship(daughter, son));
         }
 
         [TestMethod]
-        public void firstCousinsRelationship()
+        [ExpectedException(typeof(InsufficientFamilyHistoryException), "At least one parent is required per child.")]
+        public void atLeastOneParentRequired()
         {
-            Relative daughter = new Relative(Gender.FEMALE);
-            Relative cousin = new Relative(Gender.MALE);
+            Relative orphan1 = new Relative(Gender.MALE);
+            Relative orphan2 = new Relative(Gender.MALE);
 
-            grandFather.addChild(father);
-            grandFather.addChild(aunt);
-            father.addChild(daughter);
-            aunt.addChild(cousin);
-
-            Assert.AreEqual(Relationship.COUSINS, calculator.findRelationship(daughter, cousin));
+            calculator.findRelationship(orphan1, orphan2);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InsufficientFamilyHistoryException), "")]
+        public void noGrandparentsOnFirstRelative()
+        {
+            calculator.findRelationship(mother, uncle);
+        }
+
+        //[TestMethod]
+        //public void firstCousinsThroughSiblingParents()
+        //{
+        //    Relative daughter = new Relative(Gender.FEMALE);
+        //    Relative cousin = new Relative(Gender.MALE);
+
+        //    father.addChild(daughter);
+        //    aunt.addChild(cousin);
+
+        //    Assert.AreEqual(Relationship.COUSINS, calculator.findRelationship(daughter, cousin));
+        //}
+
+        //[TestMethod]
+        //public void firstCousinsThroughInLawParents()
+        //{
+        //    Relative daughter = new Relative(Gender.FEMALE);
+        //    Relative cousin = new Relative(Gender.MALE);
+
+        //    father.addChild(daughter);
+        //    aunt.addChild(cousin);
+
+        //    Assert.AreEqual(Relationship.COUSINS, calculator.findRelationship(daughter, cousin));
+        //}
     }
 }
